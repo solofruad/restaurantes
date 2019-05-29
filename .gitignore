@@ -1,0 +1,5 @@
+*.dll
+packages/
+.vs/
+Debug/
+/Restaurantes/obj/
