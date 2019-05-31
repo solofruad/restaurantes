@@ -2,4 +2,8 @@
 packages/
 .vs/
 Debug/
-/Restaurantes/obj/
+foodcruise/foodcruise/obj/
+foodcruise/foodcruise/bin/
+foodcruise/packages/
+
+
