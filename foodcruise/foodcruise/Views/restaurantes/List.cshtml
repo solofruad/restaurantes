@@ -36,7 +36,15 @@
                 @Html.DisplayFor(modelItem => item.horario)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.principal)
+                @if (item.principal == 0)
+                {
+                    <text>NO</text>
+
+                }
+                else
+                {
+                    <text>SI</text>
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.capacidad)

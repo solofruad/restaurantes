@@ -32,7 +32,15 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.principal)
+            @if (Model.principal == 0)
+            {
+                <text>NO</text>
+
+            }
+            else
+            {
+                <text>SI</text>
+            }
         </dd>
 
         <dt>

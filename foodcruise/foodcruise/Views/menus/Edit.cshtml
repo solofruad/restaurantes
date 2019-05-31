@@ -37,7 +37,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.fecha, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.fecha, new { htmlAttributes = new { @class = "form-control" } })
+                @if (Model.fecha != null)
+                {
+                    <input id="fecha" name="fecha" type="date" class="form-control" value="@Model.fecha.Value.ToString("yyyy-MM-dd")" />
+                }
+                else
+                {
+                    <input id="fecha" name="fecha" type="date" class="form-control" value="" />
+                }
                 @Html.ValidationMessageFor(model => model.fecha, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -45,7 +52,19 @@
         <div class="form-group">
             @Html.LabelFor(model => model.tipo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.tipo, new { htmlAttributes = new { @class = "form-control" } })
+                <select id="tipo" name="tipo" class="form-control">
+                    @if (Model.tipo == "General")
+                    {
+                        <option value="General" selected>General</option>
+                        <option value="Especial">Especial</option>
+                    }
+                    else
+                    {
+                        <option value="General">General</option>
+                        <option value="Especial" selected>Especial</option>
+                    }
+
+                </select>
                 @Html.ValidationMessageFor(model => model.tipo, "", new { @class = "text-danger" })
             </div>
         </div>
