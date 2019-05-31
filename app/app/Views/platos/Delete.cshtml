@@ -1,0 +1,57 @@
+﻿@model app.Models.plato
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Plato: @Html.DisplayFor(model => model.nombre)</h2>
+<h4>Eliminar plato</h4>
+<h3>¿Está seguro que desea eliminar esto?</h3>
+<div>
+    <h4>plato</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Nombre del plato
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            Descripción
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+
+        <dt>
+            Categoria
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.categoria1.nombre)
+        </dd>
+
+        <dt>
+            Menú al que pertenece
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.menu1.nombre)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Volver", "Index", "Platos", new { menu = Model.menu1.id }, null)
+        </div>
+    }
+</div>

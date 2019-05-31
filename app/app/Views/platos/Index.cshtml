@@ -1,0 +1,48 @@
+﻿@model IEnumerable<app.Models.plato>
+
+@{
+    ViewBag.Title = "Platos";
+}
+
+<h2>@ViewBag.menuPrincipal.restaurante1.nombre</h2> 
+<h4>Menú: @ViewBag.menuPrincipal.nombre | @Html.ActionLink("Volver", "Index", "Menus", new { restaurante = ViewBag.menuPrincipal.restaurante1.id }, null)</h4>
+<h3>Listado de platos</h3>
+<p>    
+    @Html.ActionLink("Nuevo plato", "Create", new { menu = ViewBag.menuPrincipal.id})
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            Nombre del Plato
+        </th>
+        <th>
+            Descripción
+        </th>
+        <th>
+            Categoría
+        </th>        
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.categoria1.nombre)
+            </td>            
+            <td>
+                @Html.ActionLink("Ver", "Details", new { id = item.id }) |
+                @Html.ActionLink("Editar", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
+
+</table>

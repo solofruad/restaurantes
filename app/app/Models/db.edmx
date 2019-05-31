@@ -1,0 +1,348 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="cruceroModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="categoria">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="jornada">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="restaurante" Type="int" Nullable="false" />
+          <Property Name="jornada" Type="int" Nullable="false" />
+          <Property Name="fecha" Type="datetime" />
+          <Property Name="tipo" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="plato">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="descripcion" Type="nvarchar" MaxLength="300" />
+          <Property Name="menu" Type="int" Nullable="false" />
+          <Property Name="categoria" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="restaurante">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="horario" Type="nvarchar" MaxLength="100" />
+          <Property Name="principal" Type="int" Nullable="false" />
+          <Property Name="capacidad" Type="int" />
+        </EntityType>
+        <Association Name="fk_menu_jornada">
+          <End Role="jornada" Type="Self.jornada" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="menu" Type="Self.menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="jornada">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="menu">
+              <PropertyRef Name="jornada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_menu_restaurante">
+          <End Role="restaurante" Type="Self.restaurante" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="menu" Type="Self.menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="restaurante">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="menu">
+              <PropertyRef Name="restaurante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_plato_categoria">
+          <End Role="categoria" Type="Self.categoria" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="plato" Type="Self.plato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categoria">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="plato">
+              <PropertyRef Name="categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_plato_menu">
+          <End Role="menu" Type="Self.menu" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="plato" Type="Self.plato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="menu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="plato">
+              <PropertyRef Name="menu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="cruceroModelStoreContainer">
+          <EntitySet Name="categoria" EntityType="Self.categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="jornada" EntityType="Self.jornada" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="menu" EntityType="Self.menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="plato" EntityType="Self.plato" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="restaurante" EntityType="Self.restaurante" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_menu_jornada" Association="Self.fk_menu_jornada">
+            <End Role="jornada" EntitySet="jornada" />
+            <End Role="menu" EntitySet="menu" />
+          </AssociationSet>
+          <AssociationSet Name="fk_menu_restaurante" Association="Self.fk_menu_restaurante">
+            <End Role="restaurante" EntitySet="restaurante" />
+            <End Role="menu" EntitySet="menu" />
+          </AssociationSet>
+          <AssociationSet Name="fk_plato_categoria" Association="Self.fk_plato_categoria">
+            <End Role="categoria" EntitySet="categoria" />
+            <End Role="plato" EntitySet="plato" />
+          </AssociationSet>
+          <AssociationSet Name="fk_plato_menu" Association="Self.fk_plato_menu">
+            <End Role="menu" EntitySet="menu" />
+            <End Role="plato" EntitySet="plato" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="cruceroModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="categoria">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="platoes" Relationship="Self.fk_plato_categoria" FromRole="categoria" ToRole="plato" />
+        </EntityType>
+        <EntityType Name="jornada">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="menus" Relationship="Self.fk_menu_jornada" FromRole="jornada" ToRole="menu" />
+        </EntityType>
+        <EntityType Name="menu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="restaurante" Type="Int32" Nullable="false" />
+          <Property Name="jornada" Type="Int32" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Precision="3" />
+          <Property Name="tipo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="jornada1" Relationship="Self.fk_menu_jornada" FromRole="menu" ToRole="jornada" />
+          <NavigationProperty Name="restaurante1" Relationship="Self.fk_menu_restaurante" FromRole="menu" ToRole="restaurante" />
+          <NavigationProperty Name="platoes" Relationship="Self.fk_plato_menu" FromRole="menu" ToRole="plato" />
+        </EntityType>
+        <EntityType Name="plato">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="menu" Type="Int32" Nullable="false" />
+          <Property Name="categoria" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="categoria1" Relationship="Self.fk_plato_categoria" FromRole="plato" ToRole="categoria" />
+          <NavigationProperty Name="menu1" Relationship="Self.fk_plato_menu" FromRole="plato" ToRole="menu" />
+        </EntityType>
+        <EntityType Name="restaurante">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="horario" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="principal" Type="Int32" Nullable="false" />
+          <Property Name="capacidad" Type="Int32" />
+          <NavigationProperty Name="menus" Relationship="Self.fk_menu_restaurante" FromRole="restaurante" ToRole="menu" />
+        </EntityType>
+        <Association Name="fk_plato_categoria">
+          <End Role="categoria" Type="Self.categoria" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="plato" Type="Self.plato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categoria">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="plato">
+              <PropertyRef Name="categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_menu_jornada">
+          <End Role="jornada" Type="Self.jornada" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="menu" Type="Self.menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="jornada">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="menu">
+              <PropertyRef Name="jornada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_menu_restaurante">
+          <End Role="restaurante" Type="Self.restaurante" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="menu" Type="Self.menu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="restaurante">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="menu">
+              <PropertyRef Name="restaurante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_plato_menu">
+          <End Role="menu" Type="Self.menu" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="plato" Type="Self.plato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="menu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="plato">
+              <PropertyRef Name="menu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="cruceroEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="categorias" EntityType="Self.categoria" />
+          <EntitySet Name="jornadas" EntityType="Self.jornada" />
+          <EntitySet Name="menus" EntityType="Self.menu" />
+          <EntitySet Name="platoes" EntityType="Self.plato" />
+          <EntitySet Name="restaurantes" EntityType="Self.restaurante" />
+          <AssociationSet Name="fk_plato_categoria" Association="Self.fk_plato_categoria">
+            <End Role="categoria" EntitySet="categorias" />
+            <End Role="plato" EntitySet="platoes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_menu_jornada" Association="Self.fk_menu_jornada">
+            <End Role="jornada" EntitySet="jornadas" />
+            <End Role="menu" EntitySet="menus" />
+          </AssociationSet>
+          <AssociationSet Name="fk_menu_restaurante" Association="Self.fk_menu_restaurante">
+            <End Role="restaurante" EntitySet="restaurantes" />
+            <End Role="menu" EntitySet="menus" />
+          </AssociationSet>
+          <AssociationSet Name="fk_plato_menu" Association="Self.fk_plato_menu">
+            <End Role="menu" EntitySet="menus" />
+            <End Role="plato" EntitySet="platoes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="cruceroModelStoreContainer" CdmEntityContainer="cruceroEntities">
+          <EntitySetMapping Name="categorias">
+            <EntityTypeMapping TypeName="cruceroModel.categoria">
+              <MappingFragment StoreEntitySet="categoria">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="jornadas">
+            <EntityTypeMapping TypeName="cruceroModel.jornada">
+              <MappingFragment StoreEntitySet="jornada">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="menus">
+            <EntityTypeMapping TypeName="cruceroModel.menu">
+              <MappingFragment StoreEntitySet="menu">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="restaurante" ColumnName="restaurante" />
+                <ScalarProperty Name="jornada" ColumnName="jornada" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="platoes">
+            <EntityTypeMapping TypeName="cruceroModel.plato">
+              <MappingFragment StoreEntitySet="plato">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="menu" ColumnName="menu" />
+                <ScalarProperty Name="categoria" ColumnName="categoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="restaurantes">
+            <EntityTypeMapping TypeName="cruceroModel.restaurante">
+              <MappingFragment StoreEntitySet="restaurante">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="horario" ColumnName="horario" />
+                <ScalarProperty Name="principal" ColumnName="principal" />
+                <ScalarProperty Name="capacidad" ColumnName="capacidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

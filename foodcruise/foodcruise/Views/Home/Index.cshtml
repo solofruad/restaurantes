@@ -1,0 +1,23 @@
+﻿@model IEnumerable<foodcruise.Models.restaurante>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Bienvenido</h1>
+    <p class="lead">Sistema de información de los restaurantes disponibles para los tripulantes del Crucero "Ondas del Meta" </p>
+</div>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <h2>@Html.DisplayFor(modelItem => item.nombre)</h2>
+            <p>
+                Horario: @Html.DisplayFor(modelItem => item.horario)
+            </p>
+            <p>@Html.ActionLink("Ver más", "Index", "restaurantes", new { id = item.id }, null)</p>
+        </div>
+    }
+</div>

@@ -79,7 +79,7 @@ namespace Restaurantes.Controllers
                 return NotFound();
             }
 
-            var menu = await _context.Menu.FindAsync(id);
+            var menu = await _context.Menu.FindAsync(id);            
             if (menu == null)
             {
                 return NotFound();

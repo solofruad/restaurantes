@@ -1,0 +1,50 @@
+﻿@model foodcruise.Models.plato
+
+@{
+    ViewBag.Title = "Plato";
+}
+
+<h2>Plato @Html.DisplayFor(model => model.nombre)</h2>
+<h4>Restaurante: @Html.DisplayFor(model => model.menu1.restaurante1.nombre) | Menú: @Html.DisplayFor(model => model.menu1.nombre)</h4>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Volver", "Index", new { menu = Model.menu1.id })
+</p>
+<div>
+    <hr />
+    <img src="~/images/dinner_icon.png" width="120">
+    <dl class="dl-horizontal">
+        <dt>
+            Nombre del plato
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            Descripción
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descripcion)
+        </dd>
+
+        <dt>
+            Categoría
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.categoria1.nombre)
+        </dd>
+
+        <dt>
+            Menú al que pertenece
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.menu1.nombre)
+        </dd>
+
+    </dl>
+</div>
