@@ -5,20 +5,25 @@
 }
 <h2>@Html.DisplayFor(model => model.nombre)</h2>
 <hr />
+<div class="row container">
+    <div class="col-md-2">
+        <img src="~/images/restaurantes_icon.png" width="120">
+    </div>
+    <div class="col-md-10">
+        <p>
+            <b>Tipo:</b>
+            @if (Model.principal == 0)
+            {
+                <text>General</text>;
+            }
+            else
+            {
+                <text>Principal</text>;
+            }
+        </p>
+        <p><b>Horario:</b> @Html.DisplayFor(model => model.horario)</p>
+        <p><b>Capacidad:</b> @Html.DisplayFor(model => model.capacidad) personas</p>
 
-<img src="~/images/restaurantes_icon.png" width="120">
-<p>
-    <b>Tipo:</b>
-    @if (Model.principal == 0)
-    {
-        <text>General</text>;
-    }
-    else
-    {
-        <text>Principal</text>;
-    }
-</p>
-<p><b>Horario:</b> @Html.DisplayFor(model => model.horario)</p>
-<p><b>Capacidad:</b> @Html.DisplayFor(model => model.capacidad) personas</p>
-
-@Html.ActionLink("Menu", "Index", "Menus", new { restaurante = Model.id }, null)  |   @Html.ActionLink("Editar información", "Edit", new { id = Model.id })
+        @Html.ActionLink("Menu", "Index", "Menus", new { restaurante = Model.id }, null)  |   @Html.ActionLink("Editar información", "Edit", new { id = Model.id })
+    </div>
+</div>
